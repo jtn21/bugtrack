@@ -1,6 +1,6 @@
 const {response} = require('express');
 const userRoutes = require('../routes/user.routes');
-const User = require('../models/user.model');
+const {User} = require('../models/user.model');
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
@@ -44,6 +44,32 @@ module.exports.addUser = (req, res) => {
             }
         })
         .catch(err=>console.log('err!', err))
+}
+
+
+
+
+//update
+module.exports.updateUser = (req, res) => {
+    const idFromParams = req.params.id;
+    const updateValue = req.body
+    User.findOneAndUpdate(
+        {_id: idFromParams},
+        updateValue,
+        {new: true, runValidators: true}
+    )
+        .then(updateUser => res.json(updateUser))
+        .catch(err=> res.status(400).json(err))
+}
+
+
+//delete
+
+module.exports.deleteUser = (req,res) => {
+    User.deleteOne({_id: req.params.id})
+        .then(message => res.json(message))
+        .catch(err=> res.son(err))
+    
 }
 
 

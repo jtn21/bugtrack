@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const IssueSchema = new mongoose.Schema({
-    class : {
+    subject : {
         type: String,
         required: [true, 'Please select the class']
     },

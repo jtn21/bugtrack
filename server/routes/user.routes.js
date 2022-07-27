@@ -14,4 +14,5 @@ module.exports = (app) =>{
 
     app.get('/api/user/:userId/issue', UserController.allIssues)
     app.get("/api/issue/:userId", IssueController.oneIssue)
+    app.post('api/issue/addIssue', IssueController.addIssue)
 }

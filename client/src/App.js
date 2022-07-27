@@ -1,7 +1,8 @@
 import './App.css';
-import SignIn from './components/SignIn';
+import SignIn from './views/SignIn';
 import {Routes, Route} from 'react-router-dom';
-import Dashboard from './components/Dashboard';
+import Dashboard from './views/Dashboard';
+import IssueForm from './components/IssueForm';
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
       <Routes>
         <Route path= "/" element={<SignIn/>}/>
         <Route path= "/dashboard" element={<Dashboard/>}/>
-
+        <Route path='/issues/new' element={<IssueForm/>}/>
       </Routes>
 
     </div>
