@@ -1,6 +1,7 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import axios from 'axios'
 import {Link, useNavigate} from 'react-router-dom'
+
 
 const IssueForm = () => {
 
@@ -9,18 +10,33 @@ const IssueForm = () => {
     const [priority, setPriority] = useState("");
     const [assigned, setAssigned] = useState("");
     const [resolved, setResolved] = useState(false);
-    const [user, setUser] = useState('')
+    const [loggedinuser, setLoggedInUser] = useState('')
 
-    
+
+    console.log(loggedinuser)
     const [errors, setErrors] = useState('')
     const navigate = useNavigate()
+
+    useEffect(()=>{
+        axios.get(`http://localhost:8000/api/user/getloggedinuser`, {withCredentials: true})
+            .then(res=>{
+                console.log("res when getting logged in user:", res)
+                if(res.data.results){
+                    setLoggedInUser(res.data.results)
+                }
+            })
+            .catch(err=>{
+                console.log(err)
+                navigate('/')
+            })
+    },[])
 
 
     const handleSubmit=(e)=>{
         e.preventDefault()
-        axios.post(`http://localhost:8000/api/issue/addIssue`, {subject, description, priority, assigned, resolved})
+        axios.post(`http://localhost:8000/api/issue`, {subject, description, priority, assigned, resolved, firstName: loggedinuser.firstName, lastName: loggedinuser.lastName, userId: loggedinuser._id})
         .then(res=>{
-            console.log('res after registering',res)
+            console.log('res after submit',res)
             if(res.data.errors){
                 setErrors(res.data.errors)
             }
@@ -37,37 +53,47 @@ const IssueForm = () => {
 
 
     return (
-    <div>IssueForm
-        <Link to="/dashboard">Nvm</Link>
+    <div>
+        
+        <Link to="/dashboard">Return to Dashboard</Link>
 
-        <form onSubmit={handleSubmit}>
-        <h1>Issue Form</h1> 
-            <div className='form-group'>
-                <label>Subject:</label>
-                <input type="text" className='form-control' name="subject" placeholder='Subject' onChange={(e)=>setSubject(e.target.value)} value={subject}/> 
-                <p className="text-danger">{errors.subject?.message}</p>
-            </div>
-            <div className='form-group'>
-                <label>Description:</label>
-                <input type="text" className='form-control' name="description" placeholder='Description' onChange={(e)=>setDescription(e.target.value)} value={description}/> 
-                <p className="text-danger">{errors.description?.message}</p>
-            </div>
-            <div className='form-group'>
-                <label>Priority:</label>
-                <input type="text" className='form-control' name="priority" placeholder="Priority" onChange={(e)=>setPriority(e.target.value)} value={priority}/> 
-                <p className="text-danger">{errors.priority?.message}</p>
-            </div>
-            <div className='form-group'>
-                <label>assigned:</label>
-                <input type="text" className='form-control' name="assigned" placeholder="Assigned to" onChange={(e)=>setAssigned(e.target.value)} value={assigned}/> 
-                <p className="text-danger">{errors.assigned?.message}</p>
-            </div>
-            <div className='form-group'>
-                <label>Resolved:</label>
-                <input type="checkbox" className='form-control' name="resolved" checked={resolved} onChange={(e)=>setResolved(e.target.checked)}/> 
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        <div class="w-50 p-3 bg-info bg-gradient text-white d-flex justify-content-center mx-auto mt-5">
+            <form onSubmit={handleSubmit}>
+            <h1>Issue Form</h1> 
+                <div className="col-auto">
+                    <label>Subject:</label>
+                    <input type="text" className='form-control' name="subject" placeholder='Subject' onChange={(e)=>setSubject(e.target.value)} value={subject}/> 
+                    <p className="text-danger">{errors.subject?.message}</p>
+                </div>
+                <div className="col-auto">
+                    <label>Description:</label>
+                    <input type="text" className='form-control' name="description" placeholder='Description' onChange={(e)=>setDescription(e.target.value)}  value={description}/> 
+                    <p className="text-danger">{errors.description?.message}</p>
+                </div>
+                <div className="col-auto">
+                    <label>Assigned:</label>
+                    <input type="text" className='form-control' name="assigned" placeholder="Assigned to" onChange={(e)=>setAssigned(e.target.value)} value={assigned}/> 
+                    <p className="text-danger">{errors.assigned?.message}</p>
+                </div>
+                <div className="col-auto">
+                    <label>Priority:</label>
+                    <select value={priority} className='form-control' name="priority" onChange={(e)=>setPriority(e.target.value)}>
+                        <option value="hidden">Choose Priority Level</option>
+                        <option value="urgent">Urgent</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                    <p className="text-danger">{errors.priority?.message}</p>
+                </div>
+                <div className="col-auto">
+                    <input type="checkbox" className='form-check-input' name="resolved" checked={resolved} onChange={(e)=>setResolved(e.target.checked)}/> 
+                    <label>Resolved</label>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3" >Submit</button>
+            </form>
+        </div>
+        
 
 
     </div>

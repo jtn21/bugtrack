@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import {useNavigate, Link} from 'react-router-dom'
+import Display from './Display'
+
 
 
 const Dashboard = () => {
@@ -38,6 +40,8 @@ const Dashboard = () => {
             <h1> Welcome Name: {loggedInUser.firstName} </h1>
             <Link to="/issues/new">Submit New Ticket</Link>
             <button onClick={handleLogout} className="btn btn-danger">Log Out</button>
+
+            <Display></Display>
 
 
         </div>

@@ -21,11 +21,19 @@ const IssueSchema = new mongoose.Schema({
     resolved : {
         type: Boolean
     },
-    user : {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
+    userId : {
+        type: String
+    },
+    firstName : {
+        type: String
+    },
+    lastName: {
+        type: String
     }
 
 },{timestamps:true});
 
-module.exports.Job = mongoose.model('Issue', IssueSchema)
+module.exports.Issue = mongoose.model('Issue', IssueSchema)
+
+// userID is going to grab to the object id
+// user is set to grab data from results.

@@ -4,6 +4,32 @@ const { User } = require('../models/user.model')
 
 
 
+
+// add issue
+
+module.exports.addIssue =  async(req,res) =>{
+    try{
+        const newIssue = new Issue(req.body)
+        await newIssue.save()
+
+        const updatedUser = await User.findOneAndUpdate(
+            {_id:newIssue.userId},
+            {$push: {issues : newIssue}},
+            {new : true}
+            )
+        res.json(updatedUser)
+    }catch(err){
+        res.status(400).json(err)
+    }
+}
+
+module.exports.getAll = (req, res) => {
+    Issue.find()
+        .then(issues => res.json(issues))
+        .catch(err => res.json(err))
+}
+
+
 //get one issue
 module.exports.oneIssue = (req,res) =>{
     Issue.findOne({_id:req.params.id})
@@ -11,20 +37,5 @@ module.exports.oneIssue = (req,res) =>{
         .catch(err=>res.status(400).json(err))
 }
     
-// add issue
 
-module.exports.addIssue =  async(req,res) =>{
-    try{
-        const newIssue = new Issue(req.body)
-        newIssue.user = req.params.userId
-        await newIssue.save()
 
-        const foundUser = await User.findOne({_id:req.params.userId})
-        foundUser.issues.push(newIssue)
-        await foundUser.save()
-
-        res.json(newIssue)
-    }catch(err){
-        res.status(400).json(err)
-    }
-}
