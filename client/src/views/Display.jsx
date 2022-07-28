@@ -15,9 +15,10 @@ const Display = () => {
     },[])
 
 
+
     return (
     <div>
-        <table className='table table-hover'>
+        <table className='table table-hover table-bordered w-75 mx-auto'>
             <thead>
                 <tr>
                     <th>Name</th>
@@ -33,10 +34,10 @@ const Display = () => {
             {
             issues.map((eachIssue,i)=>{
                 return(
-                    <tr key={i}>
+                    <tr key={i} className="h-100">
                         <td>{eachIssue.firstName} {eachIssue.lastName}</td>
                         <td>{eachIssue.subject}</td>
-                        <td>{eachIssue.description}</td>
+                        <td className='text-wrap col-5'>{eachIssue.description}</td>
                         <td>{eachIssue.priority}</td>
                         <td>{eachIssue.assigned}</td>
                         <td>{eachIssue.resolved?"Yes":"No"}</td>

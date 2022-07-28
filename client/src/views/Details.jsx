@@ -1,36 +1,54 @@
 import React, {useState, useEffect} from 'react'
-import {useParams} from 'react-router-dom'
+import {useParams, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 
 const Details = () => {
-    const [issue,setIssue] = useState('')
-    const {id} = useParams()
+    const [issue,setIssue] = useState('');
+    const {id} = useParams();
+    const navigate = useNavigate();
 
-
+//for getting individual ticket
     useEffect(()=>{
         axios.get(`http://localhost:8000/api/issue/${id}`)
         .then(res=>setIssue(res.data))
         .catch(err=>console.log(err))
     },[])
 
+
+    const handleDelete = ()=>{
+        axios.delete(`http://localhost:8000/api/issue/${id}`)
+            .then(res=>navigate('/dashboard'))
+            .catch(err=>console.log(err))
+    }
+
+
     return (
         <div>
-            <div>
-                <container>
-                    <div>
-                        <h6>Assigned: {issue.assigned}</h6>
-                        <h6>Resolved: {issue.resolved?"Yes":"No"}</h6>
-                        <h6>Priority: {issue.priority} </h6>
-                    </div>
-                </container>
-            </div>
             {
                 issue?
-                <div>
-                    <h1>subject: {issue.subject}</h1>
-                </div>:
-                <h1>Sike!</h1>
+                    <div className =" w-50 card text-white bg-secondary mx-auto mt-5">
+                        <container>
+                            <div className='card-header bg-dark'>
+                                <h4>Subject: {issue.subject} </h4>
+                            </div>
+                            <div className='card-body'>
+                                <h6 className='card-title d-flex align-items-start '>Assigned to: {issue.assigned}</h6>
+                                <h6 className='card-title d-flex align-items-start'>Priority: {issue.priority} </h6>
+                                <h6 className='card-title d-flex align-items-start'>Resolved: {issue.resolved?"Yes":"No"}</h6>
+                                <h6 className='card-title d-flex align-items-start'>Description: </h6>
+                                <p className='card-text'>{issue.description}</p>
+                                <a href='/dashboard' class='btn btn-warning'>Current Issues</a>
+                                <button type="button" class='btn btn-danger' onClick={e=>handleDelete(issue._id)}>Delete Issue</button>
+                            </div>
+                            <div class="card-footer text-white">
+                                Submitted by: {issue.firstName} {issue.lastName} 
+                            </div>
+
+                        </container>
+                    </div>:
+                    <h1>Sike!</h1>
             }
+            
         </div>
     )
 }

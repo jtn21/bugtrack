@@ -5,16 +5,14 @@ import {Link, useNavigate} from 'react-router-dom'
 
 const IssueForm = () => {
 
-    const [subject, setSubject] = useState();
+    const [subject, setSubject] = useState("");
     const [description, setDescription] = useState("");
     const [priority, setPriority] = useState("");
     const [assigned, setAssigned] = useState("");
     const [resolved, setResolved] = useState(false);
     const [loggedinuser, setLoggedInUser] = useState('')
 
-
-    console.log(loggedinuser)
-    const [errors, setErrors] = useState('')
+    const [errors, setErrors] = useState([]);
     const navigate = useNavigate()
 
     useEffect(()=>{
@@ -39,6 +37,7 @@ const IssueForm = () => {
             console.log('res after submit',res)
             if(res.data.errors){
                 setErrors(res.data.errors)
+                console.log(setErrors)
             }
             else{
                 navigate('/dashboard')
@@ -79,10 +78,10 @@ const IssueForm = () => {
                     <label>Priority:</label>
                     <select value={priority} className='form-control' name="priority" onChange={(e)=>setPriority(e.target.value)}>
                         <option value="hidden">Choose Priority Level</option>
-                        <option value="urgent">Urgent</option>
-                        <option value="high">High</option>
-                        <option value="medium">Medium</option>
-                        <option value="low">Low</option>
+                        <option value="Urgent">Urgent</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
                     </select>
                     <p className="text-danger">{errors.priority?.message}</p>
                 </div>

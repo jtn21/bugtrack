@@ -2,6 +2,13 @@ const {Issue} = require ('../models/issue.model')
 const { User } = require('../models/user.model')
 
 
+//delete issue
+module.exports.deleteIssue = (req,res) => {
+    Issue.deleteOne({_id: req.params.id})
+        .then(message => res.json(message))
+        .catch(err=> res.son(err))
+    
+}
 
 
 
@@ -37,5 +44,6 @@ module.exports.oneIssue = (req,res) =>{
         .catch(err=>res.status(400).json(err))
 }
     
+
 
 

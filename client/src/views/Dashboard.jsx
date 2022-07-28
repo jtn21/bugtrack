@@ -35,13 +35,14 @@ const Dashboard = () => {
             })
     }
 
+
     return (
         <div>
             <h1> Welcome Name: {loggedInUser.firstName} </h1>
             <Link to="/issues/new">Submit New Ticket</Link>
-            <button onClick={handleLogout} className="btn btn-danger">Log Out</button>
-
             <Display></Display>
+
+            <button onClick={handleLogout} className="btn btn-danger">Log Out</button>
 
 
         </div>

@@ -11,8 +11,9 @@ module.exports = (app) =>{
 
 
 
-    app.get('/api/user/:userId/issue', UserController.allIssues)
+
     app.get('/api/issues', IssueController.getAll)
     app.get(`/api/issue/:id`, IssueController.oneIssue)
     app.post('/api/issue', IssueController.addIssue)
+    app.delete(`/api/issue/:id`, IssueController.deleteIssue)
 }

@@ -146,10 +146,3 @@ module.exports.allIssues = (req,res) => {
 // }
 
 
-//delete
-// module.exports.deleteUser = (req,res) => {
-//     User.deleteOne({_id: req.params.id})
-//         .then(message => res.json(message))
-//         .catch(err=> res.son(err))
-    
-// }
