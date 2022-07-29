@@ -64,7 +64,7 @@ const IssueForm = () => {
     return (
     <div>
         
-        <Link to="/dashboard">Return to Dashboard</Link>
+        <Link to="/dashboard" className='text-light'>Return to Dashboard</Link>
 
         <div class="w-50 p-3 bg-info bg-gradient text-white d-flex justify-content-center mx-auto mt-5">
             <form onSubmit={handleSubmit}>

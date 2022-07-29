@@ -40,7 +40,7 @@ const Dashboard = () => {
         <div>
             <h1> Hello {loggedInUser.firstName} </h1>
 
-            <Link to="/issues/new">Submit New Ticket</Link>
+            <button className='btn btn-warning mt-5 mb-3'><Link to="/issues/new" className='text-light'>Create New Ticket</Link></button>
             <Display></Display>
 
             <button onClick={handleLogout} className="btn btn-danger">Log Out</button>

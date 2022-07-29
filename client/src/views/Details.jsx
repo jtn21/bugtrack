@@ -26,21 +26,24 @@ const Details = () => {
         <div >
             {
                 issue?
-                    <div className ="w-50 card text-white bg-secondary mx-auto">
+                    <div className ="w-50 card text-white bg-info mx-auto" style={{opacity: .9}}>
                         <container >
-                            <div className='card-header bg-dark '>
+                            <div className='card-header bg-warning' style={{opacity: .95}}>
                                 <h4>Subject: {issue.subject} </h4>
                             </div>
-                            <div className='card-body '>
+                            <div className='card-body'>
                                 <h5 className='card-title d-flex align-items-start '>Assigned to: {issue.assigned}</h5>
                                 <h5 className='card-title d-flex align-items-start'>Priority: {issue.priority} </h5>
                                 <h5 className='card-title d-flex align-items-start'>Resolved: {issue.resolved?"Yes":"No"}</h5>
                                 <h5 className='card-title d-flex align-items-start'>Description: </h5>
                                 <p className='card-text d-flex'>{issue.description}</p>
+                                <div className='d-flex justify-content-center'>
+                                    <a href='/dashboard' class='btn btn-success mx-3 '>Current Issues</a>
+                                    <button type="button" class='btn btn-danger' onClick={e=>handleDelete(issue._id)}>Delete Issue</button>
+                                </div>
 
 
-                                <a href='/dashboard' class='btn btn-warning'>Current Issues</a>
-                                <button type="button" class='btn btn-danger' onClick={e=>handleDelete(issue._id)}>Delete Issue</button>
+                                
                             </div>
                             <div class="card-footer text-white">
                                 Submitted by: {issue.firstName} {issue.lastName} 
