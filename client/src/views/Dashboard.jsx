@@ -38,7 +38,8 @@ const Dashboard = () => {
 
     return (
         <div>
-            <h1> Welcome Name: {loggedInUser.firstName} </h1>
+            <h1> Hello {loggedInUser.firstName} </h1>
+
             <Link to="/issues/new">Submit New Ticket</Link>
             <Display></Display>
 

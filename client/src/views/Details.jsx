@@ -23,20 +23,22 @@ const Details = () => {
 
 
     return (
-        <div>
+        <div >
             {
                 issue?
-                    <div className =" w-50 card text-white bg-secondary mx-auto mt-5">
-                        <container>
-                            <div className='card-header bg-dark'>
+                    <div className ="w-50 card text-white bg-secondary mx-auto">
+                        <container >
+                            <div className='card-header bg-dark '>
                                 <h4>Subject: {issue.subject} </h4>
                             </div>
-                            <div className='card-body'>
-                                <h6 className='card-title d-flex align-items-start '>Assigned to: {issue.assigned}</h6>
-                                <h6 className='card-title d-flex align-items-start'>Priority: {issue.priority} </h6>
-                                <h6 className='card-title d-flex align-items-start'>Resolved: {issue.resolved?"Yes":"No"}</h6>
-                                <h6 className='card-title d-flex align-items-start'>Description: </h6>
-                                <p className='card-text'>{issue.description}</p>
+                            <div className='card-body '>
+                                <h5 className='card-title d-flex align-items-start '>Assigned to: {issue.assigned}</h5>
+                                <h5 className='card-title d-flex align-items-start'>Priority: {issue.priority} </h5>
+                                <h5 className='card-title d-flex align-items-start'>Resolved: {issue.resolved?"Yes":"No"}</h5>
+                                <h5 className='card-title d-flex align-items-start'>Description: </h5>
+                                <p className='card-text d-flex'>{issue.description}</p>
+
+
                                 <a href='/dashboard' class='btn btn-warning'>Current Issues</a>
                                 <button type="button" class='btn btn-danger' onClick={e=>handleDelete(issue._id)}>Delete Issue</button>
                             </div>
