@@ -12,7 +12,7 @@ const IssueForm = () => {
     const [resolved, setResolved] = useState(false);
     const [loggedinuser, setLoggedInUser] = useState('')
 
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState({});
     const navigate = useNavigate()
 
     useEffect(()=>{
@@ -35,8 +35,9 @@ const IssueForm = () => {
         axios.post(`http://localhost:8000/api/issue`, {subject, description, priority, assigned, resolved, firstName: loggedinuser.firstName, lastName: loggedinuser.lastName, userId: loggedinuser._id})
         .then(res=>{
             console.log('res after submit',res)
-            if(res.data.errors){
-                setErrors(res.data.errors)
+            const responseErrors = res?.response?.data?.errors
+            if( responseErrors){
+                setErrors(responseErrors)
                 console.log(setErrors)
             }
             else{
@@ -46,10 +47,19 @@ const IssueForm = () => {
 
         .catch(err=>{ 
             console.log('err:', err)
+            const errorResponse = err?.response?.data?.errors
+            if(errorResponse){
+                setErrors(errorResponse)
+                console.log(setErrors)
+            }
+            else{
+                navigate('/dashboard')
+            }
         })
     }
     
-
+   
+    console.log( "HELLO:", errors)
 
     return (
     <div>

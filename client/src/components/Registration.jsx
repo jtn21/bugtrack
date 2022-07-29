@@ -23,6 +23,7 @@ const Registration = () => {
             console.log('res after registering',res)
             if(res.data.errors){
                 setErrors(res.data.errors)
+                console.log(res.data.errors)
             }
             else{
                 navigate('/dashboard')
