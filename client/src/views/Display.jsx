@@ -42,6 +42,7 @@ const Display = () => {
                         <td>{eachIssue.assigned}</td>
                         <td>{eachIssue.resolved?"Yes":"No"}</td>
                         <td><button className='form-control'><Link to={`/issue/${eachIssue._id}`}>View</Link></button></td>
+                        <td><button className= 'form-control'>Click to change resolved</button></td>
                     </tr>
                     
                 )
