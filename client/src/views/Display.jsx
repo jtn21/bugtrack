@@ -1,7 +1,24 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
 
+const IssueReusable = (props) => {
+    console.log(props)
+const eachIssue = props.issue
+    return(
+        <tr key={"ok"} className="text-light">
+            <td>{eachIssue.firstName} {eachIssue.lastName}</td>
+            <td>{eachIssue.subject}</td>
+            <td className='text-wrap col-5'>{eachIssue.description}</td>
+            <td>{eachIssue.priority}</td>
+            <td>{eachIssue.assigned}</td>
+            <td>{eachIssue.resolved?"Yes":"No"}</td>
+            <td><button className='form-control'><Link to={`/issue/${eachIssue._id}`}>View</Link></button></td>
+            <td><button className= 'form-control'>Click to change resolved</button></td>
+        </tr>
+        
+    )
+}
 
 
 const Display = () => {
@@ -31,23 +48,7 @@ const Display = () => {
                 </tr>
             </thead>
             <tbody>
-            {
-            issues.map((eachIssue,i)=>{
-                return(
-                    <tr key={i} className="text-light">
-                        <td>{eachIssue.firstName} {eachIssue.lastName}</td>
-                        <td>{eachIssue.subject}</td>
-                        <td className='text-wrap col-5'>{eachIssue.description}</td>
-                        <td>{eachIssue.priority}</td>
-                        <td>{eachIssue.assigned}</td>
-                        <td>{eachIssue.resolved?"Yes":"No"}</td>
-                        <td><button className='form-control'><Link to={`/issue/${eachIssue._id}`}>View</Link></button></td>
-                        <td><button className= 'form-control'>Click to change resolved</button></td>
-                    </tr>
-                    
-                )
-            })
-        }
+            {issues.map(eachIssue => <IssueReusable issue={eachIssue} /> )}
             </tbody>
         </table>
     </div>
